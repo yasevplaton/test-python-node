@@ -1,1 +1,4 @@
 node_modules/
+citorus-test-env/
+.idea/
+.vscode/

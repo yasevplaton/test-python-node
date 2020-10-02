@@ -1,4 +1,4 @@
-# Test python-node task in citorus
+# Test python-node task for citorus
 by Platon Yasev
 
 First of all you have to install [the last stable version of Node.js & NPM](https://nodejs.org/en/download/current/) and [Anaconda](https://www.anaconda.com/products/individual). I've used Node 12.16.0, npm 6.13.4, conda 4.8.3, python 3.8.3.
@@ -14,7 +14,7 @@ Install all depenencies for Node.js
 $ npm i
 ```
 
-Create citorus-test-env conda environment and install all dependencies for python
+Create **citorus-test-env** conda environment and install all dependencies for python
 ```sh
 $ conda create --name citorus-test-env --file requirements.txt
 ```
@@ -24,7 +24,7 @@ Start up the server on http://localhost:3000/
 $ node server.js
 ```
 
-Use simple web-server for frontend testing. I've used "Live Server" VSCode extension. You can use it also or install simple http-server and start in in another bash console.
+Use simple web-server for frontend testing. I've used ["Live Server" VSCode extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer). You can use it also or install simple http-server and start in in another bash console.
 ```sh
 $ npm install http-server -g
 $ http-server

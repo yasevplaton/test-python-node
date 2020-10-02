@@ -24,7 +24,7 @@ Start up the server on http://localhost:3000/
 $ node server.js
 ```
 
-Use simple web-server for frontend testing. I've used ["Live Server" VSCode extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer). You can use it also or install simple http-server and start in in another bash console.
+Use simple web-server for frontend testing. I've used ["Live Server" VSCode extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer). You can use it also or install simple http-server and start it in another bash console.
 ```sh
 $ npm install http-server -g
 $ http-server

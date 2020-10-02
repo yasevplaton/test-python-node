@@ -30,4 +30,4 @@ $ npm install http-server -g
 $ http-server
 ```
 
-> Your web-server will start on some port (you can find the port number in the console). Go to the address in your browser (I've tested this only in Google Chrome). You will see a simple map with initial layers and button 'Clip data'. Click the button and the output intersection layer will appear in a few seconds. You can click on each polygon and find out its area in square kilometers, calculated in Web-Mercator (EPSG 3857) projection.
+> Your web-server will start on some port (you can find the port number in the console). Go to the address in your browser (I've tested this only in Google Chrome). You will see a simple map with initial layers and button 'Clip data'. Click the button and the output intersection layer will appear in a few seconds. You can click on each polygon and find out its area in square meters calculated in Web-Mercator (EPSG 3857) projection.

@@ -1,35 +1,31 @@
-# Для корректной работы скрипта вне QGIS необходимо добавить следующие переменные окружения
-# 
-# export PATH="/Applications/QGIS3.10.app/Contents/MacOS/bin:$PATH"
-# export PYQGIS_STARTUP=/Applications/QGIS3.10.app/Contents/Resources/python/pyqgis-startup.py
-# export PYTHONHOME=/Applications/QGIS3.10.app/Contents/Frameworks/Python.framework/Versions/Current
-# export PYTHONPATH=/Applications/QGIS3.10.app/Contents/Resources/python:${PYTHONPATH}
-# export QGIS_PREFIX_PATH=/Applications/QGIS3.10.app/Contents/MacOS
-# export GDAL_DRIVER_PATH=/Applications/QGIS3.10.app/Contents/Resources/gdal/gdalplugins
-# export GDAL_DATA=/Applications/QGIS3.10.app/Contents/Resources/gdal
-# export QT_QPA_PLATFORM_PLUGIN_PATH=/Applications/QGIS3.10.app/Contents/PlugIns
-
 import sys
-import os
-from qgis.core import *
-from qgis import processing
+import geopandas as gpd
 
-# main routine
-def main():
-  qgs = QgsApplication([], False)
-  QgsApplication.setPrefixPath("/Applications/QGIS3.10.app/Contents/MacOS", True)
-  qgs.initQgis()
-  vydels = QgsVectorLayer('/Users/yasevplaton/work/citorus-test/vydels3857.geojson', 'vydels', 'ogr')
-  mask = QgsVectorLayer('/Users/yasevplaton/work/citorus-test/geoCategories3857.geojson', 'mask', 'ogr')
+# receive data as system arguments
+inputLayerPath = sys.argv[1]
+maskPath = sys.argv[2]
 
-  del vydels, mask
+def intersectData(inputLayerPath, maskPath):
 
-  # в данный момент скрипт отваливается на этом моменте, пишет
-  # AttributeError: module 'qgis.processing' has no attribute 'run'
-  result = processing.run("native:clip", {'INPUT': vydels, 'OVERLAY': mask, 'OUTPUT': 'memory:'})
-  qgs.exitQgis()
+  # read vector data
+  inputLayer = gpd.read_file(inputLayerPath)
+  mask = gpd.read_file(maskPath)
 
+  # project data to cartesian CRS (in our case we use Web-Mercator EPSG 3857)
+  inputLayer3857 = inputLayer.to_crs(epsg=3857)
+  mask3857 = mask.to_crs(epsg=3857)
 
-# main
-if __name__ == '__main__':
-  main()
+  # clip data
+  output = gpd.clip(inputLayer3857, mask3857, keep_geom_type=True)
+
+  # calculate areas of received polygons
+  output["area-3857"] = output["geometry"].area
+
+  # project data to initial projection WGS-84
+  output = output.to_crs(epsg=4326)
+
+  # convert data to json
+  return output.to_json(ensure_ascii=False)
+
+# send data to the child process of node.js
+print(intersectData(inputLayerPath, maskPath))

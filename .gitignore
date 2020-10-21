@@ -1,5 +1,6 @@
 node_modules/
 intersect-module-env/
+test-env/
 .idea/
 .vscode/
 .DS_Store

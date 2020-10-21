@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 
   // store some constants
   const pythonScript = "intersect.py";
-  const environmentName = "citorus-test-env";
+  const environmentPath = "./intersect-module-env/bin/python3.9";
   const pathToInputLayer = "./data/vydels.json";
   const pathToMask = "./data/geoCategories.json";
 
@@ -19,17 +19,13 @@ app.get("/", (req, res) => {
 
   // define arguments for a python process
   args = [
-    "run",
-    "-n",
-    `${environmentName}`,
-    "python",
     `${pythonScript}`,
     pathToInputLayer,
     pathToMask
   ];
 
   // create child process for a python script
-  const pythonProcess = spawn("conda", args, {shell: true});
+  const pythonProcess = spawn(environmentPath, args, {shell: true});
 
   pythonProcess.stdout.on("data", function (data) {
     console.log("Pipe data from python script ...");

@@ -1,4 +1,5 @@
 node_modules/
-citorus-test-env/
+intersect-module-env/
 .idea/
 .vscode/
+.DS_Store

@@ -1,4 +1,4 @@
-# Test python-node task for citorus
+# Test python-node task
 by Platon Yasev
 
 First of all you have to install [the last stable version of Node.js & NPM](https://nodejs.org/en/download/current/) and [pip](https://pip.pypa.io/en/stable/installing/). I've used Node 15.0.0, npm 7.0.2, pip 20.2.4, python 3.9.0
